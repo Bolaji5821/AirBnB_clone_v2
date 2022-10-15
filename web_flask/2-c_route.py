@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""A script that starts a flask web application
+"""Start a Flask app
 """
 from flask import Flask
 
@@ -7,21 +7,22 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello():
-    """Displays a string when the route / is requested
+def hello_flask():
+    """Return string when route queried
     """
-    return "Hello HBNB"
+    return 'Hello HBNB!'
 
 
 @app.route('/hbnb')
-def hbnb():
-    """Displays hbnb
+def hello_hbnb():
+    """Return string when route queried
     """
-    return "HBNB"
+    return 'HBNB'
+
 
 @app.route('/c/<text>')
-def hello(text):
-    """Displays a string when the route / is requested
+def hello_c(text):
+    """Return string when route queried
     """
     return 'C %s' % text.replace('_', ' ')
 
