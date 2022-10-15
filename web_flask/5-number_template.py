@@ -6,9 +6,9 @@ Routes:
     /c/<text> - display "C <text>"
     /python/<text> - display "Python is cool"
     /number/<n> - display n if integer
+    /number_template/<n> - display a HTML page if n is int
 """
 from flask import Flask, render_template
-
 
 app = Flask(__name__)
 
@@ -42,13 +42,13 @@ def python_text(text="is cool"):
 
 @app.route('/number/<int:n>', strict_slashes=False)
 def number_n(n):
-    """display n if integer"""
+    """displays n if integer"""
     return "%i is a number" % n
 
 
-@app.route('/number_template/<int:n>')
-def num_temp(n):
-    """Display a html page if n is an integer"""
+@app.route('/number_template/<int:n>', strict_slashes=False)
+def number_template(n):
+    """display a HTML page if n is int"""
     return render_template('5-number.html', n=n)
 
 
