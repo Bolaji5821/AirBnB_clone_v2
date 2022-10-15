@@ -1,47 +1,49 @@
 #!/usr/bin/python3
-"""Start a Flask app
+"""Starts Flask web app
+Routes:
+    / - display "Hello HBNB!"
+    /hbnb - display "HBNB"
+    /c/<text> - display "C <text>"
+    /python/<text> - display "Python is cool"
+    /number/<n> - display n if integer
 """
 from flask import Flask
 
 app = Flask(__name__)
 
 
-@app.route('/')
-def hello_flask():
-    """Return string when route queried
-    """
-    return 'Hello HBNB!'
+@app.route('/', strict_slashes=False)
+def hbnb_route():
+    """prints Hello HBNB"""
+    return "Hello HBNB!"
 
 
-@app.route('/hbnb')
-def hello_hbnb():
-    """Return string when route queried
-    """
-    return 'HBNB'
+@app.route('/hbnb', strict_slashes=False)
+def hbnb():
+    """prints HBNB"""
+    return "HBNB"
 
 
-@app.route('/c/<text>')
-def hello_c(text):
-    """Return string when route queried
-    """
-    return 'C %s' % text.replace('_', ' ')
+@app.route('/c/<string:text>', strict_slashes=False)
+def c_text(text):
+    """prints C followed by <text> content"""
+    text = text.replace("_", " ")
+    return "C %s" % text
 
 
-@app.route('/python/')
-@app.route('/python/<text>')
-def pymagic(text="is cool"):
-    """Return string when route queried
-    """
-    return 'Python %s' % text.replace('_', ' ')
+@app.route('/python', strict_slashes=False)
+@app.route('/python/<string:text>', strict_slashes=False)
+def python_text(text="is cool"):
+    """prints Python is cool"""
+    text = text.replace("_", " ")
+    return "Python %s" % text
 
 
-@app.route('/number/<int:n>')
-def isnum(n):
-    """displays n only if n is a number
-    """
-    return '%i is a number' %n
+@app.route('/number/<int:n>', strict_slashes=False)
+def number_n(n):
+    """display n if integer"""
+    return "%i is a number" % n
 
 
-if __name__ == '__main__':
-    app.url_map.strict_slashes = False
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0")
